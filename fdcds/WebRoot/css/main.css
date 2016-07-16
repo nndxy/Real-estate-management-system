@@ -1,0 +1,17 @@
+body {
+  
+}
+
+.house-img img {
+  width: 100%;
+  max-height: 200px;
+}
+
+.left h4 {
+  color: #1B6D85;
+  font-weight: bold;
+}
+
+.search-box .pricebox {
+  width: 50px;
+}

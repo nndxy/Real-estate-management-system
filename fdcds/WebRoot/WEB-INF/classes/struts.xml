@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="usersManage" namespace="/"
+		extends="json-default,struts-default">
+		<interceptors>
+			<interceptor name="LoginConfim" class="com.fdc.interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<action name="um" class="UsersAction">
+			<result name="success">/WEB-INF/jsp/index.jsp</result>
+			<result name="error">/WEB-INF/jsp/index.jsp</result>
+			<result name="ok">/WEB-INF/jsp/regeditresult.jsp</result>
+			<result name="no">/WEB-INF/jsp/regeditresult.jsp</result>
+			<result type="json" name="checked">
+				<param name="root">dataMap</param>
+			</result>
+		</action>
+		<action name="mp" class="HomepageAction">
+			<result name="success">/WEB-INF/jsp/index.jsp</result>
+			<result name="error">/WEB-INF/jsp/index.jsp</result>
+		</action>
+		<action name="addnew" class="HouseNewsAction">
+			<result name="success">/WEB-INF/jsp/pubresult.jsp</result>
+		</action>
+		<action name="sendMS" class="MailsAction" method="sendMessage">
+ 			<result name="success">/WEB-INF/jsp/sendResult.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<action name="sendAS" class="WantedAction">
+			<result name="success">sendasresult.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+		<action name="searchHouse" class="SearchHouseAction">
+			<result name="success">/WEB-INF/jsp/search-house.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<action name="ToPubnews">
+			<result>/WEB-INF/jsp/pubnews.jsp</result>
+ 			<result name="login" >/WEB-INF/jsp/pubresult.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
+			<interceptor-ref name="LoginConfim"></interceptor-ref>
+		</action>
+	</package>
+	
+	<package name="gc" namespace="/" extends="struts-default">
+		<action name="LoadCmt" class="AdminLoadCmtAction">
+			<result name="success">/WEB-INF/jsp/admin-cmt.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="AdminsLogin" class="AdminLoginAction">
+			<result name="success">/WEB-INF/jsp/admin-cmt.jsp</result>
+			<result name="error">/WEB-INF/jsp/admin-login.jsp</result>
+		</action>
+		<action name="DelCmt" class="AdminDelCmtAction">
+			<result name="success">WEB-INF/jsp/admin-cmt.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="ShByID" class="AdminShByIDAction">
+			<result name="success">/WEB-INF/jsp/admin-cmt-userid.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="ShByName" class="AdminShByNameAction">
+			<result name="success">/WEB-INF/jsp/admin-cmt-userName.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="LoadUsers" class="AdminLoadUsersAction">
+			<result name="success">/WEB-INF/jsp/admin-people.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="DelUser" class="AdminDelUserAction">
+			<result name="success">/WEB-INF/jsp/admin-people.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="CheckUser" class="AdminCheckUserAction">
+			<result name="success">/WEB-INF/jsp/admin-people.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="UserSh-*" class="AdminUserShAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/admin-people.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="HouseNews-*" class="AdminHouseNewsAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/admin-house.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="Homepage-*" class="AdminHomeAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/post.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="Wanted-*" class="WantedAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/main.jsp</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+
+	</package>
+	<!-- Wanted-execute  -->
+	
+	<package name="xue" namespace="/"  extends="json-default,struts-default">
+		<interceptors>
+			<interceptor name="LoginConfim" class="com.fdc.interceptor.LoginInterceptor">
+			</interceptor>
+		</interceptors>
+		<action name="updateUserInfo" class="SpaceAction">
+			<result name="success" type="redirectAction">ToSpace!loadPageInfo</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<action name="ToSpace" class="ToSpaceAction">
+			<result name="success">/WEB-INF/jsp/space.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+			<result name="login" type="redirectAction">um</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
+			<interceptor-ref name="LoginConfim"></interceptor-ref>
+		</action>
+		<action name="shelves" class="SpaceAction" method="shelves">
+			<result type="redirectAction">ToSpace!loadPageInfo</result>
+		</action>	
+		<action name="zs" class="DetailAction" method="show"> 
+			<result name="success">/WEB-INF/jsp/jsfw.jsp</result>
+			<result name="login" type="redirectAction">um</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+			<interceptor-ref name="LoginConfim"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
+		</action>
+		<action name="lx" class="MailsAction" method="toMails"><!-- 联系 -->
+			<result name="success">/WEB-INF/jsp/sendMessage.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<action name="collect" class="CollectAction">
+			<result type="json"  name="checked">
+				<param name="root">dataMap</param>
+			</result>
+		</action>
+		<action name="sendComment" class="CommentAction">
+			<result name="success" type="redirectAction">zs?newsId=${comments.comtedId}</result>
+		</action>
+		<action name="agree" class="SpaceAction" method="agreeTran">
+			<result name="success" type="redirectAction">ToSpace!loadPageInfo</result>
+		</action>
+		<action name="refuse" class="SpaceAction" method="refuseTran">
+			<result name="success" type="redirectAction">ToSpace!loadPageInfo</result>
+		</action>
+		
+		<action name="buy" class="DetailAction" method="buyHouse">
+			<result name="success">/WEB-INF/jsp/error.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		
+		<action name="cancle" class="SpaceAction" method="cancle">
+			<result name="success" type="redirectAction">ToSpace!loadPageInfo</result>
+		</action>
+		<action name="wanted" >
+			<result>/WEB-INF/jsp/wanted.jsp</result>
+			<result name="login" type="redirectAction">um</result>
+			<interceptor-ref name="LoginConfim"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> 
+		</action>
+		<action name="pubWanted" class="WantedAction">
+			<result name="success" type="redirectAction">um</result>
+			<result name="error">/WEB-INF/jsp/500.jsp</result>
+		</action>
+		<action name="*">
+			<result>/WEB-INF/jsp/{1}.jsp</result>
+		</action>
+	</package>
+	
+</struts>    
